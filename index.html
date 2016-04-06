@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html ng-app="saxoconfig">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="dvConfig BoilerPlate, Demo für davitec Produktkonfigurator">
+    <meta name="author" content="davitec gmbh, R. Schüppel">
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" type="text/css">
+    <!--  <link rel="stylesheet" href="bootstrap/css/bootstrap-theme.min.css" type="text/css"> -->
+    <link rel="stylesheet" href="font-awesome-4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/screen.css"  type="text/css" />
+    <link rel="shortcut icon" href="./favicon.ico">
+
+    <script language="javascript" src="js/jquery-1.11.3.min.js" type="text/javascript"></script>
+    <script language="javascript" src="js/modernizr.min.js" type="text/javascript"></script>
+    <script language="javascript" src="bootstrap/js/bootstrap.min.js" type="text/javascript" ></script>
+    <script language="javascript" src="js/default.js" type="text/javascript"></script>
+    <script language="javascript" src="js/angular.min.js" type="text/javascript"   ></script>
+    <script language="javascript" src="app/dvConfig.js" type="text/javascript"></script>
+    <title>dvConfig BoilerPlate</title>
+</head>
+
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-1"></div>
+
+        <div class="col-md-10" ng-controller="ProductController as prodctrl">
+            <div ng-controller="ConfigStepsController as stepCtrl">
+
+                <div>
+                    <h2>{{prodctrl.productdata.product}}-Konfigurator</h2>
+                </div>
+
+                <!--
+                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                TABS (Konfigurationsschritte)
+                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                -->
+
+                <div>
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item" ng-class="{'active':stepCtrl.isSet(stepid),'disabled':stepid > stepCtrl.tab}" ng-repeat="(stepid, stepname) in stepCtrl.steps">
+                            <a ng-if="stepid < stepCtrl.tab"
+                               class="nav-link"
+                               data-toggle="modal"
+                               data-target=".bs-example-modal-sm"
+                               ng-click="stepCtrl.checkTab(stepid)">
+                                <span class="badge">{{stepid}}</span> {{stepname}}</a>
+                            <a data-ng-if="stepid >= stepCtrl.tab" class="nav-link"><span class="badge">{{stepid}}</span> {{stepname}}</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- modal: ask for reset by step back -->
+                <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="myModalLabel">Schritt zurück</h4>
+                            </div>
+                            <div class="modal-body">
+                                Beim Wechsel auf einen vorherigen Konfigurationsschritt wird die Konfiguration des aktuellen Tabs verworfen.
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Nein, behalten!</button>
+                                <button type="button" class="btn btn-primary" ng-click="stepCtrl.setTab(stepCtrl.wantToSetTab)" data-dismiss="modal">Zurück gehen & Verwerfen</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--
+                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                TAB 1 : Tischplatte
+                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                -->
+                <div ng-show="stepCtrl.isSet(1)">
+
+                    <!-- HEADER & WEITER -->
+                    <feature ctrl="prodctrl" fqn="PRODUCT.Schreibtisch.Tischplatte" widget="next-step" ></feature>
+
+
+                    <!--
+                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                    TISCHPLATTE Festlegen
+                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                    -->
+
+                    <!-- Form Selektor -->
+                    <feature ctrl="prodctrl" fqn="PRODUCT.Schreibtisch.Tischplatte.Form" widget="feature-as-pic-list" grpindx="0"></feature>
+
+
+                    <!-- Tischplatten Details -->
+                    <div class="row">
+
+                        <!-- Länge und Breite -->
+                        <div class="col-md-4">
+                            <div>
+                                <attribute ctrl="prodctrl" fqn="PRODUCT.Schreibtisch.Tischplatte.Laenge" widget="int-attribute-as-range" ></attribute>
+                            </div>
+                            <div ng-if="!prodctrl.getModelElement('PRODUCT.Schreibtisch.Tischplatte.Form.Kreisrund').isSelected">
+                                <attribute ctrl="prodctrl" fqn="PRODUCT.Schreibtisch.Tischplatte.Breite" widget="int-attribute-as-range" ></attribute>
+                            </div>
+
+                        </div>
+
+                        <!-- Technische Details -->
+                        <div class="col-md-4">
+                            <div>
+                                <feature ctrl="prodctrl" fqn="PRODUCT.Schreibtisch.Tischplatte.Material" widget="grouped-feature-as-selectbox" grpindx="0"></feature>
+                            </div>
+                            <div ng-if="prodctrl.getModelElement('PRODUCT.Schreibtisch.Tischplatte.Material').isFinal">
+                                <attribute ctrl="prodctrl" fqn="PRODUCT.Schreibtisch.Tischplatte.Plattenstaerke" widget="int-attribute-as-selectbox" ></attribute>
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-4">
+                            <div>
+                                <feature ctrl="prodctrl" fqn="PRODUCT.Schreibtisch.Tischplatte.Kabeloeffnung" widget="feature-as-checkbox"></feature>
+                                <hr />
+                            </div>
+
+                            <!-- Zusammenfassung des Konfiugrationsschritts -->
+                            <feature ctrl="prodctrl" fqn="PRODUCT.Schreibtisch.Tischplatte" widget="list-selected-features" ></feature>
+                        </div>
+                    </div>
+                </div>
+
+                <!--
+                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                TAB 2 : Gestell
+                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                -->
+                <div ng-show="stepCtrl.isSet(2)">
+                    <!-- HEADER & WEITER -->
+                    <feature ctrl="prodctrl" fqn="PRODUCT.Schreibtisch.Gestell" widget="next-step" ></feature>
+
+                    <div class="row">
+                        <div class="col-md-7">
+                            <feature ctrl="prodctrl" fqn="PRODUCT.Schreibtisch.Gestell.Bauform" widget="grouped-feature-as-selectbox" grpindx="0"></feature>
+                            <feature ctrl="prodctrl" fqn="PRODUCT.Schreibtisch.Gestell.Material" widget="grouped-feature-as-selectbox" grpindx="0"></feature>
+                        </div>
+
+                        <div class="col-md-5">
+                            <feature ctrl="prodctrl" fqn="PRODUCT.Schreibtisch.Gestell" widget="list-selected-features" ></feature>
+                            <hr />
+                            <feature ctrl="prodctrl" fqn="PRODUCT.Schreibtisch.Tischplatte" widget="list-selected-features" ></feature>
+                        </div>
+                    </div>
+                </div>
+
+                <!--
+                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                TAB 3 : Zubehör
+                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                -->
+                <div ng-show="stepCtrl.isSet(3)">
+                    <!-- HEADER & WEITER -->
+                    <feature ctrl="prodctrl" fqn="PRODUCT.Schreibtisch.Zubehör" widget="next-step"></feature>
+
+                    <div class="row">
+                        <div class="col-md-7">
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <feature ctrl="prodctrl" fqn="PRODUCT.Schreibtisch.Zubehör.Sichtblende" widget="grouped-feature-as-selectbox" grpindx="0"></feature>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <feature ctrl="prodctrl" fqn="PRODUCT.Schreibtisch.Zubehör.CPU-Halter" widget="grouped-feature-as-selectbox" grpindx="0"></feature>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <feature ctrl="prodctrl" fqn="PRODUCT.Schreibtisch.Zubehör.Schublade" widget="feature-as-checkbox"></feature>
+                                </div>
+                                <div class="col-md-6" ng-if="prodctrl.getModelElement('PRODUCT.Schreibtisch.Zubehör.Schublade').isSelected">
+                                    <attribute ctrl="prodctrl" fqn="PRODUCT.Schreibtisch.Zubehör.Schublade.Anzahl" widget="int-attribute-as-selectbox" grpindx="0"></attribute>
+                                </div>
+                            </div>
+
+                            <feature ctrl="prodctrl" fqn="PRODUCT.Schreibtisch.Zubehör.Kabelwanne" widget="feature-as-checkbox"></feature>
+                        </div>
+
+                        <div class="col-md-5">
+                            <feature ctrl="prodctrl" fqn="PRODUCT.Schreibtisch.Zubehör" widget="list-selected-features" ></feature>
+                            <hr />
+                            <feature ctrl="prodctrl" fqn="PRODUCT.Schreibtisch.Gestell" widget="list-selected-features" ></feature>
+                            <hr />
+                            <feature ctrl="prodctrl" fqn="PRODUCT.Schreibtisch.Tischplatte" widget="list-selected-features" ></feature>
+                        </div>
+                    </div>
+                </div>
+
+                <div ng-show="stepCtrl.isSet(4)">
+                    <div class="row">
+                        <br />
+                        <div class="col-md-7">
+                            Dies ist eine Demo Version für den Funktionsumfang von dvConfig.
+                            Dieses Paket kann über github bezogen werden und dient als BoilerPlate für die Erstellung von Produktkonfiguratoren.
+                            Ab diesem Punkt werden ERP/WaWi-spezifische Konnektoren für die Übertragung von Stücklisten genutzt.
+                            Z.B. sind Warenkorb und Checkout Funktionen Ihres Webshops.
+
+                            Mehr erfahren Sie unter <a href="https://www.davitec.de/dvConfig">dvConfig</a>.
+
+                            <hr />
+
+                            In unserem Demo Produkt haben wir verschiedene Regeln zu Demonstrationszwecken verbaut. Haben Sie alle entdeckt? zB.
+                            <ul>
+                                <li>Bei Glassplatte gibt's keine Kabelöffnung</li>
+                                <li>Kabelwann in Step3 setzt die Auswahl einer Kabelöffnung der Tischplatt in Step1 voraus.</li>
+                                <li>Oval darf max 200cm lang und 120cm breit</li>
+                                <li>Kreis ist max 190cm</li>
+                                <li>Holz Optik gibts nur mit 2 bis 4 cm Plattenstärke</li>
+                                <li>Echholz gibts nur 3-5 cm</li>
+                                <li>... und einige mehr</li>
+                            </ul>
+
+                            Ziehen Sie sich das Paket von GitHub (Link finden Sie <a href="https://www.davitec.de/dvConfig">hier</a>) und
+                            schauen Sie sich die Produktdefinition (xml) im Verzeichnis ServerCode/products/Schreibtisch.xml an !
+                        </div>
+
+                        <div class="col-md-5">
+                            <feature ctrl="prodctrl" fqn="PRODUCT.Schreibtisch.Zubehör" widget="list-selected-features" ></feature>
+                            <hr />
+                            <feature ctrl="prodctrl" fqn="PRODUCT.Schreibtisch.Gestell" widget="list-selected-features" ></feature>
+                            <hr />
+                            <feature ctrl="prodctrl" fqn="PRODUCT.Schreibtisch.Tischplatte" widget="list-selected-features" ></feature>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>

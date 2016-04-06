@@ -1,0 +1,28 @@
+<h5>{{attr.title}}: {{attr.min_active}}-{{attr.max_active}} cm</h5>
+<div ng-controller="InputIntAttr as intval" ng-init="intval.init()">
+    <div class="form-group has-feedback" ng-class="{'has-error':intval.haserror,'has-success':!intval.haserror}">
+        <input type="number"
+               class="form-control"
+               ng-model="intval.size"
+               ng-blur="intval.checkvals(inputfield,attr)"
+               ng-change="intval.haschanged(inputfield,attr)"
+               name="{{inputfieldname}}"
+               id="{{inputfieldname}}"
+               min="{{attr.min-av}}"
+               max="{{attr.max-av}}"
+               required
+               aria-describedby="{{inputFieldStatusName}}">
+        <span ng-show="intval.haserror" class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+        <span ng-show="intval.haserror" id="inputFieldStatusError" class="sr-only">(error)</span>
+        <span ng-hide="intval.haserror" class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
+        <span ng-hide="intval.haserror" id="inputFieldStatusSuccess" class="sr-only">(success)</span>
+
+        <label ng-show="inputfield.$error.required" class="control-label" for="{{inputfieldname}}">Wert benötigt!</label>
+        <label ng-show="inputfield.$error.number" class="control-label" for="{{inputfieldname}}">Nur Zahlen!</label>
+        <label ng-show="inputfield.$error.max" class="control-label" for="{{inputfieldname}}">Kleiner als {{attr.max}}!</label>
+        <label ng-show="inputfield.$error.min" class="control-label" for="{{inputfieldname}}">Größer als {{attr.min}}!</label>
+    </div>
+</div>
+<div ng-repeat="myvalue in attr.values | orderBy:'value'">
+    {{myvalue.value}}, {{myvalue.isSelected}} {{myvalue.isSelectable}} {{myvalue.isConsequence}} <br />
+</div>

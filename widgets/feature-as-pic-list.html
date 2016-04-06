@@ -1,0 +1,19 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">{{feature.title}}</h4>
+    </div>
+    <div class="panel-body">
+        <label class="radio-inline enhanced-radio" ng-repeat="subf in feature.groups[grpindx].features | orderBy:'sorting'">
+            <input type="radio" name="inlineRadioOptions" id="inlineRadio_{{subf.fqn}}" value="1"
+                   ng-checked="subf.isSelected"
+                   value="{{subf.sorting}}"
+                   ng-disabled="!(subf.isSelected || subf.isSelectable)"
+                   ng-click="ctrl.selectFeature(subf,true)" >
+            <div class="radio-icon">
+                <img ng-src="{{subf.attachement.pic}}" alt="{{subf.title}}" class="img-responsive">
+            </div>
+            <h5 class="text-center">{{subf.title}}</h5>
+            <h6 class="text-center">{{subf.desc}}</h6>
+        </label>
+    </div>
+</div>

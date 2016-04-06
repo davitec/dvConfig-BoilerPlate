@@ -1,0 +1,18 @@
+<!--
+Widget expects an Int Attribute (iattr) of a parent feature and display all int values as select
+-->
+
+<h5>Select <span ng-show="attribute.alt">{{attribute.alt}}</span><span ng-hide="attribute.alt">{{attribute.title}}</span>
+    <i data-ng-if="attribute.tooltip" class="fa fa-question-circle text-warning dvtooltip" data-toggle="tooltip" title="{{attribute.tooltip}}"></i></h5>
+<select class="form-control"
+        name="int_attribute_selectbox_{{attribute.fqn}}"
+        ng-model="selected_attribute_value"
+        ng-change="ctrl.selectAttributeValue(attribute,selected_attribute_value)"
+        >
+    <option ng-if="!attribute.isSingleton" value=""> -- Bitte auswählen --</option>
+    <option ng-repeat="val in attribute.values | orderBy: 'value' as filtered_result track by val.value"
+            ng-if="val.isSelectable || val.isSelected"
+            value = "{{val.value}}">
+        {{val.value}} {{attribute.unitName}}
+    </option>
+</select>

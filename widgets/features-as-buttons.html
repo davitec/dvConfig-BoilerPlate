@@ -1,0 +1,9 @@
+<button ng-if="!feature.tooltip"
+        ng-repeat="subf in feature.features"
+        class="btn btn-default"
+        ng-class="{active : subf.isSelected}"
+        ng-disable="!subf.isSelected && subf.isConsequence"
+        ng-click = "(!subf.isConsequence) && ctrl.clickFeature(subf.fqn,true)"
+        type="button">
+        {{subf.title}}
+</button>

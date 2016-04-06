@@ -1,0 +1,27 @@
+<!--
+dvConfig BoilerPlate Widget
+-- expects a Parent Feature, that contains a OneOf Group of Child Features
+-- this group will be displayed as Select Box
+-- Selection will be pushed to dvConfig API by putDecision
+--
+-- R. Schüppel, davitec, Jan 2016 (rs@davitec.de)
+-->
+<div class="ulli-group">
+    <h5>Select {{feature.title}} <i ng-if="feature.tooltip" class="fa fa-question-circle text-warning" data-toggle="tooltip" title="{{feature.tooltip}}" style="font-size: 1.3em"></i></h5>
+    <ul>
+        <li ng-repeat="subfeature in feature.groups[grpindx].features | orderBy:'sorting'">
+            <div ng-if="subfeature.isSelectable">
+                <a ng-if="subfeature.alt" ng-click="ctrl.selectFeature(subfeature)">{{subfeature.alt}}</a>
+                <a ng-if="!subfeature.alt" ng-click="ctrl.selectFeature(subfeature)">{{subfeature.title}}</a>
+            </div>
+            <div ng-if="subfeature.isSelected">
+                <strong ng-if="subfeature.alt">{{subfeature.alt}}</strong>
+                <strong ng-if="!subfeature.alt">{{subfeature.title}}</strong>
+            </div>
+            <div ng-if="!subfeature.isSelected && !subfeature.isSelectable && subfeature.isConsequence">
+                <i ng-if="subfeature.alt">{{subfeature.alt}}</i>
+                <i ng-if="!subfeature.alt">{{subfeature.title}}</i>
+            </div>
+        </li>
+    </ul>
+</div>

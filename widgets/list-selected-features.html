@@ -1,0 +1,20 @@
+<h5>Gewählte Konfiguration für {{feature.title}}:</h5>
+<ul>
+    <div ng-repeat="subf in feature.features">
+        <div ng-if="subf.groups && subf.isSelected" ng-repeat="groups in subf.groups">
+            <div ng-repeat="gsubf in groups.features">
+                <li ng-if="gsubf.isSelected">
+                    {{subf.title}} : <strong>{{gsubf.title}}</strong>
+                </li>
+            </div>
+        </div>
+        <li ng-if="!subf.groups && subf.isSelected" >
+            mit {{subf.title}}
+        </li>
+    </div>
+    <div ng-repeat="intattr in feature.int">
+        <li ng-if="intattr.isSingleton">
+            {{intattr.title}} <strong>{{intattr.SingletonValue}}</strong> {{intattr.unitName}}
+        </li>
+    </div>
+</ul>

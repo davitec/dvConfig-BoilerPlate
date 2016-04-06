@@ -1,0 +1,14 @@
+<div class="checkbox" ng-class="{disabled : feature.isFinallyDeleted}">
+    <label>
+        <input type="checkbox"
+               name="chkbox_{{feature.fqn}}"
+               ng-value="chkboxvalue=feature.isSelected"
+               ng-model="chkboxvalue"
+               ng-change="ctrl.clickFeature(feature.fqn,true)"
+               ng-disabled="feature.isFinallyDeleted"/>
+        <strong ng-if="feature.isSelected">{{feature.title}}</strong>
+        <span ng-if="feature.isSelectable">{{feature.title}}</span>
+        <i ng-if="feature.isFinallyDeleted" class="feature-deleted">{{feature.title}}</i>
+        </label>
+    <i ng-if="feature.tooltip" class="fa fa-question-circle text-warning" data-toggle="tooltip" title="{{feature.tooltip}}" style="font-size: 1.3em"></i>
+</div>

@@ -1,0 +1,13 @@
+<div class="nextstep">
+    <div class="panel panel-default panel-body">
+        <div class="col-md-9">
+            <blockquote>
+                Bitte Konfiguration für {{feature.title}} festlegen
+            </blockquote>
+        </div>
+        <div class="col-md-3">
+            <button type="button" class="btn btn-lg btn-default" ng-if="!feature.isFinalAll">Weiter</button>
+            <button type="button" class="btn btn-lg btn-warning" ng-if="feature.isFinalAll" ng-click="stepCtrl.nextTab()">Weiter</button>
+        </div>
+    </div>
+</div>

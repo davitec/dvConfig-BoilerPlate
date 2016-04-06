@@ -1,0 +1,24 @@
+<!--
+dvConfig BoilerPlate Widget
+-- expects a Parent Feature, that contains a OneOf Group of Child Features
+-- this group will be displayed as Select Box
+-- Selection will be pushed to dvConfig API by putDecision
+--
+-- R. Schüppel, davitec, Jan 2016 (rs@davitec.de)
+-->
+<div>
+    <h5>Select {{feature.title}} <i ng-if="feature.tooltip" class="fa fa-question-circle text-warning dvtooltip" data-toggle="tooltip" title="{{feature.tooltip}}"></i></h5>
+    <select ng-class="{multiple:feature.groups[grpindx].type == 'someOf'}"
+            class="form-control"
+            name="grouped_feature_selectbox_{{feature.fqn}}"
+            ng-model="selected_subfeature_fqn"
+            ng-change="ctrl.clickFeature(selected_subfeature_fqn,true)">
+        <!-- ng-model will contain selected option value, i.e. the selected feature fqn from det.fqn -->
+        <option value=""> -- Bitte auswählen --</option>
+        <option ng-repeat="subfeature in feature.groups[grpindx].features"
+                ng-if="subfeature.isSelectable || subfeature.isSelected"
+                value = "{{subfeature.fqn}}">
+            {{subfeature.title}}
+        </option>
+    </select>
+</div>

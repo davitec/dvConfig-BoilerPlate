@@ -1,0 +1,7 @@
+<h5>{{attribute.title}}</h5>
+<ul>
+    <li ng-repeat="v in attribute.values">
+        <a ng-if="v.isSelectable && !v.isConsequence" ng-click="ctrl.selectAttributeValue(attribute,v.value)">{{v.value}}</a>
+        <strong ng-if="v.isSelected">{{v.value}}</strong>
+    </li>
+</ul>

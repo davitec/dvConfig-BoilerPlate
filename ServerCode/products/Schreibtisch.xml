@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<product title="Schreibtisch"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="http://konfigurator.davitec.de:8080/RestService/rest/xsd-schema">
+
+
+    <feature title="Tischplatte" type="mandatory" context="Step1">
+        <int title="Laenge" unit-name="cm">
+            <interval>
+                <from>70</from>
+                <to>320</to>
+                <step>1</step>
+            </interval>
+        </int>
+        <int title="Breite" unit-name="cm">
+            <interval>
+                <from>50</from>
+                <to>240</to>
+                <step>1</step>
+            </interval>
+        </int>
+        <int title="Plattenstaerke" alt="Plattenstärke" unit-name="cm" tooltip="Gibts für Glass nur in 2cm.">
+            <array>
+                <value>2</value>
+                <value>3</value>
+                <value>4</value>
+                <value>5</value>
+            </array>
+        </int>
+
+        <feature title="Form" type="mandatory">
+            <group type="OneOf">
+                <feature title="Eckig" desc="bis 320/240cm" sorting="1">
+                    <attachement>
+                        <item key="pic">./ServerCode/images/icon-rectangle.png</item>
+                        <item key="Aufpreis">+30,- €</item>
+                    </attachement>
+                </feature>
+                <feature title="Abgerundet" desc="bis 320/240cm" sorting="2">
+                    <attachement>
+                        <item key="pic">./ServerCode/images/icon-rounded.png</item>
+                    </attachement>
+                </feature>
+                <feature title="Oval" desc="bis 200/120cm" sorting="3">
+                    <attachement>
+                        <item key="pic">./ServerCode/images/icon-barrel.png</item>
+                        <item key="Aufpreis">###Aufpreis Oval###</item>
+                    </attachement>
+                </feature>
+                <feature title="Kreisrund" desc="bis 190cm" sorting="4">
+                    <attachement>
+                        <item key="pic">./ServerCode/images/icon-circle.png</item>
+                    </attachement>
+                </feature>
+            </group>
+            <constraint title="Oval-Size-Limit" desc="Oval darf max 200cm lang und 120cm breit">
+                <or>
+                    <feature_state>
+                        <qualifiedname>PRODUCT.Schreibtisch.Tischplatte.Form.Oval</qualifiedname>
+                        <is>deleted</is>
+                    </feature_state>
+                    <and>
+                        <less_or_equal>
+                            <qualifiedname>PRODUCT.Schreibtisch.Tischplatte.Laenge</qualifiedname>
+                            <value>200</value>
+                        </less_or_equal>
+                        <less_or_equal>
+                            <qualifiedname>PRODUCT.Schreibtisch.Tischplatte.Breite</qualifiedname>
+                            <value>120</value>
+                        </less_or_equal>
+                    </and>
+                </or>
+            </constraint>
+            <constraint title="Kreisrund-Limit" desc="Kreis ist max 190cm">
+                <or>
+                    <feature_state>
+                        <qualifiedname>PRODUCT.Schreibtisch.Tischplatte.Form.Kreisrund</qualifiedname>
+                        <is>deleted</is>
+                    </feature_state>
+                    <and>
+                        <less_or_equal>
+                            <qualifiedname>PRODUCT.Schreibtisch.Tischplatte.Laenge</qualifiedname>
+                            <value>190</value>
+                        </less_or_equal>
+                        <less_or_equal>
+                            <qualifiedname>PRODUCT.Schreibtisch.Tischplatte.Breite</qualifiedname>
+                            <value>190</value>
+                        </less_or_equal>
+                    </and>
+                </or>
+            </constraint>
+        </feature>
+
+        <feature title="Material">
+            <group type="OneOf">
+                <feature title="Holz" alt="Holz Optik (2-4 cm)" sorting="2">
+                    <preselection type="trigger" listenTo="PRODUCT.Schreibtisch.Tischplatte.Form">selected</preselection>
+                    <constraint title="HolzOptik2bis5cm" desc="Holz Optik gibts nur mit 2 bis 4 cm Plattenstärke">
+                        <or>
+                            <feature_state>
+                                <qualifiedname>PRODUCT.Schreibtisch.Tischplatte.Material.Holz</qualifiedname>
+                                <is>deleted</is>
+                            </feature_state>
+                            <less_or_equal>
+                                <qualifiedname>PRODUCT.Schreibtisch.Tischplatte.Plattenstaerke</qualifiedname>
+                                <value>4</value>
+                            </less_or_equal>
+                        </or>
+                    </constraint>
+                </feature>
+                <feature title="Echtholz" alt="Echtholz (3-5 cm)" sorting="1">
+                    <constraint title="Echtholz2bis5cm" desc="Echholz gibts nur 3-5 cm">
+                        <or>
+                            <feature_state>
+                                <qualifiedname>PRODUCT.Schreibtisch.Tischplatte.Material.Echtholz</qualifiedname>
+                                <is>deleted</is>
+                            </feature_state>
+                            <greater_or_equal>
+                                <qualifiedname>PRODUCT.Schreibtisch.Tischplatte.Plattenstaerke</qualifiedname>
+                                <value>3</value>
+                            </greater_or_equal>
+                        </or>
+                    </constraint>
+                </feature>
+                <feature title="PVC" alt="PVC (2-3 cm)" sorting="3">
+                    <constraint title="PVC2bis3cm" desc="PVC gibts nur mit 2 und 3 cm Plattenstärke">
+                        <or>
+                            <feature_state>
+                                <qualifiedname>PRODUCT.Schreibtisch.Tischplatte.Material.PVC</qualifiedname>
+                                <is>deleted</is>
+                            </feature_state>
+                            <less_or_equal>
+                                <qualifiedname>PRODUCT.Schreibtisch.Tischplatte.Plattenstaerke</qualifiedname>
+                                <value>3</value>
+                            </less_or_equal>
+                        </or>
+                    </constraint>
+                </feature>
+                <feature title="Glass" alt="Glass (2-3 cm)" sorting="4">
+                    <constraint title="Glass2cm" desc="Glass gibts nur mit 2cm Plattenstärke">
+                        <or>
+                            <feature_state>
+                                <qualifiedname>PRODUCT.Schreibtisch.Tischplatte.Material.Glass</qualifiedname>
+                                <is>deleted</is>
+                            </feature_state>
+                            <less_or_equal>
+                                <qualifiedname>PRODUCT.Schreibtisch.Tischplatte.Plattenstaerke</qualifiedname>
+                                <value>3</value>
+                            </less_or_equal>
+                        </or>
+                    </constraint>
+                </feature>
+            </group>
+
+            <attachement>
+                <item key="tooltip"><![CDATA[Ich bin ein <strong>CDATA ToolTip</strong> und kann daher auch HTML Tags verarbeiten.]]></item>
+                <items key="Pictures">
+                    <item key="isSelected">Grundform_Quadrat_is_Selected.jpg</item>
+                    <item key="isDeleted">Grundform_Quadrat_is_Deleted.jpg</item>
+                </items>
+            </attachement>
+        </feature>
+
+        <feature title="Kabeloeffnung" type="optional" alt="Öffnung für Kabel">
+            <excludes>PRODUCT.Schreibtisch.Tischplatte.Material.Glass</excludes>
+        </feature>
+    </feature>
+
+    <feature title="Gestell" type="mandatory" context="Step2">
+        <feature title="Bauform">
+            <group type="OneOf">
+                <feature title="Röhrenform">
+                    <preselection>selected</preselection>
+                </feature>
+                <feature title="Massiv"></feature>
+                <feature title="Filigran"></feature>
+            </group>
+        </feature>
+        <feature title="Material">
+            <group type="OneOf">
+                <feature title="Holz"></feature>
+                <feature title="Metall"></feature>
+                <feature title="Kunststoff"></feature>
+            </group>
+        </feature>
+    </feature>
+
+    <feature title="Zubehör" context="Step3">
+
+        <feature title="Kabelwanne" type="optional" tooltip="Das ist ein ToolTip für die Kabelwanne.">
+            <requires>PRODUCT.Schreibtisch.Tischplatte.Kabeloeffnung</requires>
+        </feature>
+
+
+        <feature title="Schublade">
+            <int title="Anzahl">
+                <array>
+                    <value>1</value>
+                    <value>2</value>
+                    <value>3</value>
+                </array>
+            </int>
+        </feature>
+
+        <feature title="Sichtblende">
+            <group type="OneOf">
+                <feature title="Spanplatte"></feature>
+                <feature title="Acryl"></feature>
+                <feature title="Alu"></feature>
+            </group>
+        </feature>
+
+        <feature title="CPU-Halter">
+            <group type="OneOf">
+                <feature title="links am Seitenteil"></feature>
+                <feature title="links an Tischplatte"></feature>
+                <feature title="rechts am Seitenteil"></feature>
+                <feature title="rechts an Tischplatte"></feature>
+            </group>
+        </feature>
+    </feature>
+
+</product>
