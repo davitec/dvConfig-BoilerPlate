@@ -31,6 +31,7 @@ GRUNT
 
 Getting started:
 ================
+0. add an apache vhost, call index.html as http://** not as file://**
 1. edit ./ServerCode/settings_public.json (add your own Apikey and Token, you get them on www.davitec.de/dvconfig)
 2. browse ./index.html
 3. edit ./ServerCode/product/Schreibtisch.xml as you like
@@ -43,7 +44,10 @@ More details on first steps:
 Trouble Shooting
 ----------------
 
-Just downloading and brwose index.html will show no product data:
+Just downloading and browse to index.html will show no product data:
+- check console: if you ot of errors like "b is undefined" etc in your browsers console: you need an apache vhost, dont call it as file://<your folder>/dvConfig-BoilerPlate/index.html
+
+if you run as apache vhost and you get no data:
 - check network communication of your browser, LoadSettings.php might give a 400 response if settings fail (wrong apikey etc) ..
 - you will find error description from api in the HTTP response
 - apikey/token pair is bound to IP, so you need to change it, if you use different IPs
