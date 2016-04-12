@@ -31,7 +31,7 @@ class Settings
     */
 
     function __construct(){
-        $setting_string = file_get_contents('./settings_local.json');
+        $setting_string = file_get_contents('./settings_public.json');
         $this->settings = json_decode($setting_string,true);
     }
 
