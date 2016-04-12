@@ -5,3 +5,36 @@ there you will find:
 - apikey generator
 - support ticket system
 - getting started guide 
+
+GRUNT
+- AngularJS App app/dvconfig.js is grunted from src/*
+- edit src and use grunt to concat dvconfig.js (see http://gruntjs.com/)
+- see Gruntfile.js
+- folder node_modules is grunt stuff as well
+
+./ServerCode
+- here you find some php files, that initialize api and containts product xml (ServerCode/products/Schreibtisch.xml)
+- you might integrate servercode to your own system or rewrite completely
+- ServerCode is intended for demo, so it is kept as simple as possible (ignoring code quality / coding style issues)
+- InitProduct.php and LoadSettings.php are called via HTTP requests from AngularJS (app/dvconfig.js)
+- for simplicity, we use CURL requests (might be not done in best style, but works for demo)
+
+./src
+- some Angular JS stuff, that is used by grunt to concat app/dvconfig.js
+
+./widgets
+- HTML widgets, that you can use to display features and attribute via the respective dvcoonfig.js Angular Directive
+- have a look to ./css folder as well
+
+./js, ./bootstrap
+- some stuff like bootstrap, jquery etc to have a local copy (not necessary for online version, just for local dev)
+
+Getting started:
+================
+1. edit ./ServerCode/settings_public.json (add your own Apikey and Token, you get them on www.davitec.de/dvconfig)
+2. browse ./index.html
+3. edit ./ServerCode/product/Schreibtisch.xml as you like
+4. edit ./src to change dvconfig.js and grunt it (./Gruntfile.js)
+
+More details on first steps:
+- http://dvconfigdoc.davitec.de/content/primer/first-steps.html
