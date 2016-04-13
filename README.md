@@ -6,13 +6,14 @@ For more details and ressources, go to  https://www.davitec.de/dvConfig
 - apikey generator
 - support ticket system
 - getting started guide
+
 --------
 
 Getting started:
 ================
 
 1. run boilerplate in a webserver, e.g. local apache vhost => call index.html as http://** not as file://**
-2. edit ServerCode/settings.json (add your own Apikey and Token, you get them on www.davitec.de/dvconfig)
+2. copy/rename and edit ServerCode/settings.example.json to ServerCode/settings.json (add your own Apikey and Token, you get them on www.davitec.de/dvconfig)
 3. browse to http://<your_boilerplate_at_localhost>/index.html
 4. edit ServerCode/product/Schreibtisch.xml as you like
 5. edit src/ to change dvconfig.js and grunt it (./Gruntfile.js)
@@ -33,9 +34,9 @@ If you run as apache vhost and you will still get no product data:
 
 ApiKey:
 - register at www.davitec.de/dvconfig and create apikey
-- edit ServerCode/settings.json
+- edit ServerCode/settings.json (renamed from ServerCode/settings.example.json)
 
-HTTP response of LoadSettings.php should now be 200 OK, at response body contains json with sessionkey (that is used by app/dvconfig.js)
+HTTP response of LoadSettings.php should now be 200 OK, and response body contains json with sessionkey (that is used by app/dvconfig.js)
 
 In Case of editing the product xml and errors:
 - HTTP GET to initproduct.php will fail, response body contains the xml Parser error
