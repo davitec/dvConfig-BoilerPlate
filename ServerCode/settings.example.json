@@ -3,7 +3,7 @@
   "ApiUrlDecision": "https://konfigurator.davitec.de/RestService/rest/decision",
   "ApiUrlCliCredentials": "https://konfigurator.davitec.de/RestService/rest/cli-credentials",
   "ApiUrlContext": "https://konfigurator.davitec.de/RestService/rest/context",
-  "Apikey": "testhome_davitec_gmbh_r2eftqdr8323augd457an9uu696fb688lumqg0h18f8t2rej9h9umr21s16tgck3uu2fiasj172pa35ub5pso4ma2jkg9ltpit41g96g6l01838arhdbrcbfoe0mn7llfd5a6udcqe6p5hl4pi3p2q0rb2feqar6jisekdoo0eiajoaivt6d58ntk0dsa4gtdb9shndp",
-  "Token" : "el3s4l78kg7rd33ke8b4qb1m3bo2qld6bptapbicri97gd4b30mp82v7od1urgh535mmiek7llh64b80jfb4g75vu58sqo80m99h93vc43hs521jtevfn1cncgpj93csto64cnbmd5fkit4jbgq2tpd5fqls3ncf5vsp5867vs27mqthdndj4qo7ptophhkf62u97a39rd8899j5j2vca5vh3sh4qsb9emm9rc88u3icojbf6n6dq316s2g76mpdfu3q3lvcsskt2qt7k2lrqe9f04dsvgudp92actt608f9hmvn7300lrecodoi27167d1qst0avdq3cg6uslikpjimrn060375uo1tijh43ircaggj7dstoj5195qr24240pktov9dsrceeokpna0tua7dngudktjmnbbm0mbanj2j8u0pf2gfihcaja5gq497a084s3meais2q0pbf1s00kiu07bgaln6cukpn8foacitqcmo6ugj9g8bd16mi9hq87hc16nkenhdoa13f3f6bp2n6fj86fs13600dkgrgjiv3vkt4qqr1dj2qt9ij5t0t95jbdq4b2t5n3bvf09v5fp4rcr3er0ec7ukss9tbv3v5q8mec70i9e6h7res2bfa7l6eqstnhm691fd10mnj6sra4oo5sqdn92t2me1agcmhn4q5utr30tud5vln3rdibu7g4s6dc5sb51impi3irjt79o9iulnpst03poi4nh4r9sponabdj3s3kg4br7hk1r7ribq3tljk13f4hrebp3p5rm7g3t9",
+  "Apikey": "<YOUR APIKEY, see https://www.davitec.de/dvConfig >",
+  "Token" : "<YOUR TOKEN, see https://www.davitec.de/dvConfig >",
   "xmlfile" : "./products/Schreibtisch.xml"
 }
